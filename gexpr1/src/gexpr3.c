@@ -1,4 +1,5 @@
 #include "gComp.h"
+#include <math.h>
 
 main(int argc, char *argv[] )
 {
@@ -132,9 +133,8 @@ int parseExp(token_t *tok, int *ans)
 		printf("\tpopl\t%s\n", "%ebx");
 		DPRINTF ("  %s: ans2 = %d\n", __FUNCTION__, ans2);
 		if (operator == EXP ) {
-			for(int i = 0; i < ans2; i++) {
-				ans1 *= ans1;
-			}
+			ans1 *= ans2;
+			pow(ans2, ans1);
 			printf("\timul\t%s, %s\n", "%ebx", "%eax");
 		} 
 	}
