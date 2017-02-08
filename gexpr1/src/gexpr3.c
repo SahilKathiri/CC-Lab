@@ -95,13 +95,13 @@ int parseMulDiv(token_t *tok, int *ans)
 	int operator;
 
 	DPRINTF ("  %s: BEGIN\n", __FUNCTION__);
-	parseFactor(tok, &ans1);
+	parseExp(tok, &ans1);
 	DPRINTF ("  %s: ans1 = %d\n", __FUNCTION__, ans1);
 	while ( ((operator=tok->tType) == MUL) || (operator == DIV) ) {
 		DPRINTF ("  %s: op = %d\n", __FUNCTION__, operator);
 		getToken(tok);
 		printf("\tpushl\t%s\n", "%eax");	
-		parseFactor(tok, &ans2);
+		parseExp(tok, &ans2);
 		printf("\tpopl\t%s\n", "%ebx");
 		DPRINTF ("  %s: ans2 = %d\n", __FUNCTION__, ans2);
 		if (operator == MUL ) {
@@ -111,6 +111,32 @@ int parseMulDiv(token_t *tok, int *ans)
 			ans1 /= ans2;
 			printf("\tidiv	TODO\n");
 		}
+	}
+	*ans = ans1;
+	DPRINTF ("  %s: END\n", __FUNCTION__);
+}
+
+int parseExp(token_t *tok, int *ans)
+{
+	int ans1, ans2;
+	int operator;
+
+	DPRINTF ("  %s: BEGIN\n", __FUNCTION__);
+	parseFactor(tok, &ans1);
+	DPRINTF ("  %s: ans1 = %d\n", __FUNCTION__, ans1);
+	while ( ((operator=tok->tType) == EXP) ) {
+		DPRINTF ("  %s: op = %d\n", __FUNCTION__, operator);
+		getToken(tok);
+		printf("\tpushl\t%s\n", "%eax");	
+		parseFactor(tok, &ans2);
+		printf("\tpopl\t%s\n", "%ebx");
+		DPRINTF ("  %s: ans2 = %d\n", __FUNCTION__, ans2);
+		if (operator == EXP ) {
+			for(int i = 0; i < ans2; i++) {
+				ans1 *= ans1;
+			}
+			printf("\timul\t%s, %s\n", "%ebx", "%eax");
+		} 
 	}
 	*ans = ans1;
 	DPRINTF ("  %s: END\n", __FUNCTION__);
