@@ -12,7 +12,7 @@ CFLAGS = -I$(INCDIR)
 TARGET	= $(BINDIR)/gexpr
 
 $(TARGET): $(OBJS)
-	$(CC) -o $@ $^ -g
+	$(CC) -o $@ $^ -g -lm
 
 -include $(DEPS)
 

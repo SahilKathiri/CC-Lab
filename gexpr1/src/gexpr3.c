@@ -128,14 +128,14 @@ int parseExp(token_t *tok, int *ans)
 	while ( ((operator=tok->tType) == EXP) ) {
 		DPRINTF ("  %s: op = %d\n", __FUNCTION__, operator);
 		getToken(tok);
-		printf("\tpushl\t%s\n", "%eax");	
+		//printf("\tpushl\t%s\n", "%eax");	
 		parseFactor(tok, &ans2);
-		printf("\tpopl\t%s\n", "%ebx");
+		//printf("\tpopl\t%s\n", "%ebx");
 		DPRINTF ("  %s: ans2 = %d\n", __FUNCTION__, ans2);
 		if (operator == EXP ) {
-			ans1 *= ans2;
-			pow(ans2, ans1);
-			printf("\timul\t%s, %s\n", "%ebx", "%eax");
+			printf("\tPOW\t%d, %d\n", ans1, ans2);
+			ans1 = pow(ans2, ans1);
+            printf("ANS2 = %d", ans2);
 		} 
 	}
 	*ans = ans1;
