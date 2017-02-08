@@ -7,12 +7,12 @@ SRCS = $(wildcard $(SRCDIR)/*.c)
 OBJS = $(SRCS:$(SRCDIR)%.c=$(OBJDIR)%.o)
 DEPS = $(OBJS:.o=.d)
 
-CFLAGS = -g3 -I$(INCDIR)
+CFLAGS = -I$(INCDIR)
 
 TARGET	= $(BINDIR)/gexpr
 
 $(TARGET): $(OBJS)
-	$(CC) -g3 -o $@ $^ 
+	$(CC) -o $@ $^ -g
 
 -include $(DEPS)
 
