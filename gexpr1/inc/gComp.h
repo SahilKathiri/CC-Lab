@@ -20,6 +20,7 @@
 #define EQUALS	9
 #define SEMICOLON 10
 #define EOLN	11
+#define EXP	12
 
 //#define DEBUG
 

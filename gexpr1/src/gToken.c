@@ -15,6 +15,7 @@ int getToken(token_t *t)
 		switch (c) {
 			case '+' : t->tType=PLUS; t->curPtr = 0; return OK;
 			case '-' : t->tType=MINUS; t->curPtr = 0; return OK;
+			case '^' : t->tType=EXP; t->curPtr = 0; return OK;
 			case '*' : t->tType=MUL;t->curPtr = 0;  return OK;
 			case '/' : t->tType=DIV;t->curPtr = 0;  return OK;
 			case '(' : t->tType=LRB;t->curPtr = 0;  return OK;
