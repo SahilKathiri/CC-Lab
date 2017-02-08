@@ -3,8 +3,7 @@
 token_t curToken;
 token_t prevToken;
 
-int getToken(token_t *t)
-{
+int getToken(token_t *t) {
 	char tStr[MAX_TOK_LEN];
 	char *s = t->curPtr;
 	char *tStrPtr = tStr;
@@ -58,12 +57,10 @@ int getToken(token_t *t)
 	} // of while()
 } // of getToken()
 
-void unGetToken(token_t *tok)
-{
+void unGetToken(token_t *tok) {
 	tok->curPtr = tok->unGetPtr;
 }
 
-void initToken(char *str, token_t *tok)
-{
+void initToken(char *str, token_t *tok) {
  	tok->curPtr = str;
 }

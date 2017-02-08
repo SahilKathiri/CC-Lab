@@ -13,15 +13,13 @@ struct node_t {
 
 struct node_t *hash_table[MAX_BUCKETS];
 
-int hashFunc(char id[])
-{
+int hashFunc(char id[]) {
 	int sum =0;
 	while (*id) { sum += *id++; }
 	return sum % MAX_BUCKETS;
 }
 
-void _insertSymbolTable(struct node_t *ht[], char id[], int val)
-{
+void _insertSymbolTable(struct node_t *ht[], char id[], int val) {
 	int index = hashFunc(id);
 	struct node_t *new_node;
 	new_node = (struct node_t *)malloc(sizeof(struct node_t));
@@ -33,14 +31,12 @@ void _insertSymbolTable(struct node_t *ht[], char id[], int val)
 	}
 	ht[index] = new_node;
 }
-void insertSymbolTable(char id[], int val)
-{
+void insertSymbolTable(char id[], int val) {
 	_insertSymbolTable(hash_table, id, val);
 }
 
 
-int _searchSymbolTable(struct node_t *ht[], char id[],  int *val)
-{
+int _searchSymbolTable(struct node_t *ht[], char id[],  int *val) {
 	int index = hashFunc(id);
 	struct node_t *tmp;
 
@@ -53,13 +49,11 @@ int _searchSymbolTable(struct node_t *ht[], char id[],  int *val)
 	return 0;
 }
 
-int searchSymbolTable(char id[], int *val)
-{
+int searchSymbolTable(char id[], int *val) {
 	return _searchSymbolTable(hash_table, id, val);
 }
 
-void _printSymbolTable(struct node_t *ht[])
-{
+void _printSymbolTable(struct node_t *ht[]) {
 	int i;
 	struct node_t *tmp;
 
@@ -74,8 +68,7 @@ void _printSymbolTable(struct node_t *ht[])
 
 void printSymbolTable() { _printSymbolTable(hash_table); }
 
-void initSymbolTable()
-{	
+void initSymbolTable() {	
 	int i;
 	for (i = 0; i < MAX_BUCKETS; i++) {
 		hash_table[i] = NULL;
@@ -83,8 +76,7 @@ void initSymbolTable()
 }
 
 #ifdef MAIN
-main()
-{
+main() {
 	int a[] = { 26, 37, 59, 76, 65, 86 };
 	int b[] =  { 26, 59, 10, 86, 0 };
 	int i;
