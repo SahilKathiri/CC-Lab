@@ -21,7 +21,7 @@
 #define SEMICOLON 10
 #define EOLN	11
 
-//#define DEBUG
+#define DEBUG
 
 #ifdef DEBUG
 #define DPRINTF printf
