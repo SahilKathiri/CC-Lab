@@ -1,8 +1,7 @@
 #include "gComp.h"
 #include <math.h>
 
-main(int argc, char *argv[] )
-{
+int main(int argc, char *argv[] ) {
 	char exprStr[100];
 	token_t tok;
 	int ans, quit = 0;
@@ -17,8 +16,7 @@ main(int argc, char *argv[] )
 	} while(1);
 }
 
-int parseStatment(token_t *tok)
-{
+int parseStatment(token_t *tok) {
 	switch (tok->tType ) {
 		case ID : parseAssignment(tok);  break;
 		//case IF :
@@ -29,8 +27,7 @@ int parseStatment(token_t *tok)
 }
 
 
-int parseAssignment(token_t *tok)
-{	
+int parseAssignment(token_t *tok) {	
 	char id[MAX_ID_LEN];
 	int ans;	
 	
@@ -55,15 +52,13 @@ int parseAssignment(token_t *tok)
 }
 
 
-int parseExpr(token_t *tok, int *ans)
-{
+int parseExpr(token_t *tok, int *ans) {
 	parsePlusMinus(tok, ans);
 	return OK;
 }
 
 
-int parsePlusMinus(token_t *tok, int *ans)
-{
+int parsePlusMinus(token_t *tok, int *ans) {
 	int ans1, ans2;
 	int operator;
 
@@ -90,19 +85,18 @@ int parsePlusMinus(token_t *tok, int *ans)
 }
 
 
-int parseMulDiv(token_t *tok, int *ans)
-{
+int parseMulDiv(token_t *tok, int *ans) {
 	int ans1, ans2;
 	int operator;
 
 	DPRINTF ("  %s: BEGIN\n", __FUNCTION__);
-	parseExp(tok, &ans1);
+	parsePow(tok, &ans1);
 	DPRINTF ("  %s: ans1 = %d\n", __FUNCTION__, ans1);
 	while ( ((operator=tok->tType) == MUL) || (operator == DIV) ) {
 		DPRINTF ("  %s: op = %d\n", __FUNCTION__, operator);
 		getToken(tok);
 		printf("\tpushl\t%s\n", "%eax");	
-		parseExp(tok, &ans2);
+		parsePow(tok, &ans2);
 		printf("\tpopl\t%s\n", "%ebx");
 		DPRINTF ("  %s: ans2 = %d\n", __FUNCTION__, ans2);
 		if (operator == MUL ) {
@@ -117,8 +111,7 @@ int parseMulDiv(token_t *tok, int *ans)
 	DPRINTF ("  %s: END\n", __FUNCTION__);
 }
 
-int parseExp(token_t *tok, int *ans)
-{
+int parsePow(token_t *tok, int *ans) {
 	int ans1, ans2, i;
 	int operator;
 
@@ -129,21 +122,20 @@ int parseExp(token_t *tok, int *ans)
 		DPRINTF ("  %s: op = %d\n", __FUNCTION__, operator);
 		getToken(tok);
 		//printf("\tpushl\t%s\n", "%eax");	
-		parseFactor(tok, &ans2);
+		parseExpr(tok, &ans2);
 		//printf("\tpopl\t%s\n", "%ebx");
 		DPRINTF ("  %s: ans2 = %d\n", __FUNCTION__, ans2);
 		if (operator == EXP ) {
-			printf("\tPOW\t%d, %d\n", ans1, ans2);
-			ans1 = pow(ans2, ans1);
-            printf("ANS2 = %d", ans2);
+			// printf("\tPOW\t%d, %d\n", ans1, ans2);
+			ans1 = pow(ans1, ans2);
+            // printf("ANS2 = %d", ans2);
 		} 
 	}
 	*ans = ans1;
 	DPRINTF ("  %s: END\n", __FUNCTION__);
 }
 
-int parseFactor(token_t *tok, int *ans)
-{
+int parseFactor(token_t *tok, int *ans) {
 	DPRINTF ("    %s: BEGIN\n", __FUNCTION__);
 	switch (tok->tType) {
 		case NUMBER : 

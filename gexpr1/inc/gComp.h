@@ -22,7 +22,7 @@
 #define EOLN	11
 #define EXP	12
 
-#define DEBUG
+// #define DEBUG
 
 #ifdef DEBUG
 #define DPRINTF printf
@@ -46,3 +46,15 @@ void unGetToken(token_t *tok);
 void initToken(char *exprStr, token_t *tok);
 void print_error(char *msg);
 
+void initSymbolTable();
+void insertSymbolTable(char id[], int val);
+int searchSymbolTable(char id[], int *val);
+
+
+int parseStatment(token_t *tok);
+int parseAssignment(token_t *tok);
+int parseExpr(token_t *tok, int *ans);
+int parsePlusMinus(token_t *tok, int *ans);
+int parseMulDiv(token_t *tok, int *ans);
+int parsePow(token_t *tok, int *ans);
+int parseFactor(token_t *tok, int *ans);
